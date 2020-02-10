@@ -14,6 +14,7 @@ import '../pages/overlay_image.dart';
 import '../pages/plugin_api.dart';
 import '../pages/plugin_scalebar.dart';
 import '../pages/plugin_zoombuttons.dart';
+import '../pages/polygon.dart';
 import '../pages/polyline.dart';
 import '../pages/tap_to_add.dart';
 import '../pages/wms_tile_layer.dart';
@@ -60,6 +61,13 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           selected: currentRoute == PolylinePage.route,
           onTap: () {
             Navigator.pushReplacementNamed(context, PolylinePage.route);
+          },
+        ),
+        ListTile(
+          title: const Text('Polygons'),
+          selected: currentRoute == PolygonPage.route,
+          onTap: () {
+            Navigator.pushReplacementNamed(context, PolygonPage.route);
           },
         ),
         ListTile(

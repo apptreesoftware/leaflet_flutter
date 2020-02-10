@@ -23,6 +23,7 @@ class Polygon {
   final double borderStrokeWidth;
   final Color borderColor;
   final bool isDotted;
+  final bool isFilled;
   LatLngBounds boundingBox;
 
   Polygon({
@@ -31,6 +32,7 @@ class Polygon {
     this.borderStrokeWidth = 0.0,
     this.borderColor = const Color(0xFFFFFF00),
     this.isDotted = false,
+    this.isFilled = false,
   }) {
     boundingBox = LatLngBounds.fromPoints(points);
   }
@@ -112,7 +114,7 @@ class PolygonPainter extends CustomPainter {
     final rect = Offset.zero & size;
     canvas.clipRect(rect);
     final paint = Paint()
-      ..style = PaintingStyle.fill
+      ..style = polygonOpt.isFilled ? PaintingStyle.fill : PaintingStyle.stroke
       ..color = polygonOpt.color;
     final borderPaint = polygonOpt.borderStrokeWidth > 0.0
         ? (Paint()
@@ -137,9 +139,9 @@ class PolygonPainter extends CustomPainter {
   void _paintDottedLine(Canvas canvas, List<Offset> offsets, double radius,
       double stepLength, Paint paint) {
     var startDistance = 0.0;
-    for (var i = 0; i < offsets.length - 1; i++) {
-      var o0 = offsets[i];
-      var o1 = offsets[i + 1];
+    for (var i = 0; i < offsets.length; i++) {
+      var o0 = offsets[i % offsets.length];
+      var o1 = offsets[(i + 1) % offsets.length];
       var totalDistance = _dist(o0, o1);
       var distance = startDistance;
       while (distance < totalDistance) {
