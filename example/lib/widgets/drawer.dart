@@ -16,6 +16,7 @@ import '../pages/plugin_api.dart';
 import '../pages/plugin_scalebar.dart';
 import '../pages/plugin_zoombuttons.dart';
 import '../pages/polyline.dart';
+import '../pages/reset_tile_layer.dart';
 import '../pages/tap_to_add.dart';
 import '../pages/wms_tile_layer.dart';
 
@@ -40,6 +41,13 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           selected: currentRoute == WMSLayerPage.route,
           onTap: () {
             Navigator.pushReplacementNamed(context, WMSLayerPage.route);
+          },
+        ),
+        ListTile(
+          title: const Text("Reset Tile Layer"),
+          selected: currentRoute == ResetTileLayerPage.route,
+          onTap: () {
+            Navigator.pushReplacementNamed(context, ResetTileLayerPage.route);
           },
         ),
         ListTile(
