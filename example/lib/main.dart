@@ -16,6 +16,7 @@ import './pages/plugin_api.dart';
 import './pages/plugin_scalebar.dart';
 import './pages/plugin_zoombuttons.dart';
 import './pages/polyline.dart';
+import './pages/reset_tile_layer.dart';
 import './pages/tap_to_add.dart';
 import './pages/wms_tile_layer.dart';
 
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         CirclePage.route: (context) => CirclePage(),
         OverlayImagePage.route: (context) => OverlayImagePage(),
         WMSLayerPage.route: (context) => WMSLayerPage(),
+        ResetTileLayerPage.route: (context) => ResetTileLayerPage(),
         CustomCrsPage.route: (context) => CustomCrsPage(),
       },
     );

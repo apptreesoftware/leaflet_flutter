@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map_example/pages/reset_tile_layer.dart';
 
 import '../pages/animated_map_controller.dart';
 import '../pages/circle.dart';
@@ -40,6 +41,13 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           selected: currentRoute == WMSLayerPage.route,
           onTap: () {
             Navigator.pushReplacementNamed(context, WMSLayerPage.route);
+          },
+        ),
+        ListTile(
+          title: const Text("Reset Tile Layer"),
+          selected: currentRoute == ResetTileLayerPage.route,
+          onTap: () {
+            Navigator.pushReplacementNamed(context, ResetTileLayerPage.route);
           },
         ),
         ListTile(

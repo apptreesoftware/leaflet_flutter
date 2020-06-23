@@ -152,6 +152,9 @@ class TileLayerOptions extends LayerOptions {
   // it can 0 to avoid fade in
   final Duration tileFadeInDuration;
 
+  /// Stream to notify the [TileLayer] that it needs resetting
+  Stream<Null> reset;
+
   TileLayerOptions(
       {this.urlTemplate,
       this.tileSize = 256.0,
@@ -181,6 +184,7 @@ class TileLayerOptions extends LayerOptions {
       // Tiles fade in duration in milliseconds (default 100),
       // it can 0 to avoid fade in
       int tileFadeInDuration = 100,
+        this.reset,
       rebuild})
       : updateInterval =
             updateInterval <= 0 ? null : Duration(milliseconds: updateInterval),
@@ -302,6 +306,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
   //ignore: unused_field
   Level _level;
   StreamSubscription _moveSub;
+  StreamSubscription _resetSub;
   StreamController<LatLng> _throttleUpdate;
   CustomPoint _tileSize;
 
@@ -316,6 +321,10 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
     _resetView();
     _update(null);
     _moveSub = widget.stream.listen((_) => _handleMove());
+
+    if (options.reset != null) {
+      _resetSub = options.reset.listen((_) => _resetTiles());
+    }
 
     if (options.updateInterval == null) {
       _throttleUpdate = null;
@@ -334,6 +343,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
     super.dispose();
 
     _removeAllTiles();
+    _resetSub?.cancel();
     _moveSub?.cancel();
     options.tileProvider.dispose();
     _throttleUpdate?.close();
@@ -508,6 +518,12 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
     for (var key in toRemove) {
       _removeTile(key);
     }
+  }
+
+  ///removes all loaded tiles and resets the view
+  void _resetTiles() {
+    _removeAllTiles();
+    _resetView();
   }
 
   void _removeAllTiles() {
