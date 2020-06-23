@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map_example/pages/reset_tile_layer.dart';
 
 import '../pages/animated_map_controller.dart';
 import '../pages/circle.dart';
@@ -17,6 +16,7 @@ import '../pages/plugin_api.dart';
 import '../pages/plugin_scalebar.dart';
 import '../pages/plugin_zoombuttons.dart';
 import '../pages/polyline.dart';
+import '../pages/reset_tile_layer.dart';
 import '../pages/tap_to_add.dart';
 import '../pages/wms_tile_layer.dart';
 
