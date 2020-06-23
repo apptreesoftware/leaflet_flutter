@@ -184,7 +184,7 @@ class TileLayerOptions extends LayerOptions {
       // Tiles fade in duration in milliseconds (default 100),
       // it can 0 to avoid fade in
       int tileFadeInDuration = 100,
-        this.reset,
+      this.reset,
       rebuild})
       : updateInterval =
             updateInterval <= 0 ? null : Duration(milliseconds: updateInterval),
