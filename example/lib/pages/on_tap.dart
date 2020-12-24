@@ -27,44 +27,46 @@ class OnTapPageState extends State<OnTapPage> {
         height: 80.0,
         point: london,
         builder: (ctx) => Container(
-                child: GestureDetector(
-              onTap: () {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Tapped on blue FlutterLogo Marker'),
-                ));
-              },
-              child: FlutterLogo(),
-            )),
+            child: GestureDetector(
+          onTap: () {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+              content: Text('Tapped on blue FlutterLogo Marker'),
+            ));
+          },
+          child: FlutterLogo(),
+        )),
       ),
       Marker(
         width: 80.0,
         height: 80.0,
         point: dublin,
         builder: (ctx) => Container(
-                child: GestureDetector(
-              onTap: () {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Tapped on green FlutterLogo Marker'),
-                ));
-              },
-              child: FlutterLogo(
-                colors: Colors.green,
-              ),
-            )),
+            child: GestureDetector(
+          onTap: () {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+              content: Text('Tapped on green FlutterLogo Marker'),
+            ));
+          },
+          child: FlutterLogo(
+            textColor: Colors.green,
+          ),
+        )),
       ),
       Marker(
         width: 80.0,
         height: 80.0,
         point: paris,
         builder: (ctx) => Container(
-                child: GestureDetector(
-              onTap: () {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Tapped on purple FlutterLogo Marker'),
-                ));
-              },
-              child: FlutterLogo(colors: Colors.purple),
-            )),
+            child: GestureDetector(
+          onTap: () {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+              content: Text('Tapped on purple FlutterLogo Marker'),
+            ));
+          },
+          child: FlutterLogo(
+            textColor: Colors.purple,
+          ),
+        )),
       ),
     ];
 

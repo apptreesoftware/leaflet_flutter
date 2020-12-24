@@ -14,13 +14,13 @@ dependencies:
     sdk: flutter
   tuple: ^1.0.2
   latlong: ^0.6.1
-  positioned_tap_detector: ^1.0.2
+  positioned_tap_detector: ^1.0.3
   transparent_image: ^1.0.0
-  async: ^2.1.0
-  flutter_image: ^2.0.0-dev.1
-  cached_network_image: ^0.8.0
+  async: ^2.4.2
+  flutter_image: ^3.0.0
+  cached_network_image: ^2.5.0
   sqflite: ^1.1.5
-  path_provider: ^0.5.0+1
+  path_provider: ^1.6.24
 
 dev_dependencies:
   pedantic: ^1.5.0
