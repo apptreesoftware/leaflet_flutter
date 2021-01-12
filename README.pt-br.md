@@ -1,14 +1,14 @@
 [![BuildStatus](https://travis-ci.com/fleaflet/flutter_map.svg?branch=master)](https://travis-ci.org/johnpryan/flutter_map)
 [![Pub](https://img.shields.io/pub/v/flutter_map.svg)](https://pub.dev/packages/flutter_map)<br/>
-[Bazilian Portuguese](README.pt-br.md) | [English](README.md)
+[Portugués do Brasil](README.pt-br.md) | [Inglês](README.md)
 
 # flutter_map
 
-A Dart implementation of [Leaflet] for Flutter apps.
+Uma implementação em Dart do [Leaflet] para aplicativos em Flutter.
 
-## Installation
+## Instalação
 
-Add flutter_map to your pubspec:
+Adicione o flutter_map no seu pubspec:
 
 ```yaml
 dependencies:
@@ -17,15 +17,16 @@ dependencies:
 
 ### Android
 
-Ensure the following permission is present in your Android Manifest file, located in `<project root>/android/app/src/main/AndroidManifest.xml`:
+Certifique que a seguitne permissão está presente no seu arquivo Android Manifest, localizado em:
+`<project root>/android/app/src/main/AndroidManifest.xml`:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET"/>
 ```
 
-## Usage
+## Uso
 
-Configure the map using `MapOptions` and layer options:
+Configure o mapa usando `MapOptions` e as opções de camada:
 
 ```dart
 Widget build(BuildContext context) {
@@ -56,8 +57,7 @@ Widget build(BuildContext context) {
   );
 }
 ```
-
-Alternatively initialize the map by specifying bounds instead of center and zoom.
+Você também pode iniciar o mapa especificando os limites ao invés de um zoom central. 
 
 ```dart
 MapOptions(
@@ -66,9 +66,9 @@ MapOptions(
 ),
 ```
 
-### Azure Maps provider
+### Provedor de mapas da Azure
 
-Configure the map to use [Azure Maps](https://azure.com/maps) by using the following `MapOptions` and layer options:
+Configure o mapa para usar os [Mapas da Azure](https://azure.com/maps) para usar o `MapOptions` e as opções de camada:
 
 ```dart
 Widget build(BuildContext context) {
@@ -102,11 +102,11 @@ Widget build(BuildContext context) {
 }
 ```
 
-To use Azure Maps you will need to [setup an account and get a subscription key](https://docs.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app)
+Para usar o Azure Maps você vai precisar de [criar uma conta e obter uma chave de acesso](https://docs.microsoft.com/en-us/azure/azure-maps/quick-demo-map-app)
 
-### Open Street Map provider
+### Abrindo o Stret Map Provider
 
-Configure the map to use [Open Street Map](https://openstreetmap.org) by using the following `MapOptions` and layer options:
+Configure o map para usar [Open Street Map](https://openstreetmap.org) e então poderá usar o `MapOptions` e as opções de camadas:
 
 ```dart
 Widget build(BuildContext context) {
@@ -138,9 +138,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-### Widget Layers
+### Camadas de Wigets
 
-__Use the new way to create layers__ (compatible with previous version)
+__Use a nova forma de criar camadas__ (compativel com a versão anterior)
 
 ```dart
 Widget build(BuildContext context) {
@@ -187,11 +187,11 @@ Widget build(BuildContext context) {
 }
 ```
 
-### Custom CRS
+### Customize o SRC
 
-By default flutter_map supports only WGS84 (EPSG:4326) and Google Mercator (EPSG:3857) projections. With the integration of [proj4dart](https://github.com/maRci002/proj4dart) any coordinate reference systems (CRS) can be defined and used.
+Por padrão flutter_map suporta somente as projeções WGS84 (EPSG:4326) e Google Marcador (EPSG:3857). Com a integração do [proj4dart](https://github.com/maRci002/proj4dart) qualquer sistema de referencia de coordenadas (SRC) pode ser definido e usado.
 
-Define custom CRS:
+Definindo SRC customizados:
 
 ```dart
 var resolutions = <double>[32768, 16384, 8192, 4096, 2048, 1024, 512, 256, 128];
@@ -205,7 +205,7 @@ var epsg3413CRS = Proj4Crs.fromFactory(
 );
 ```
 
-Use Custom CRS in map and in WMS layers:
+Uso de SRC Customizado em um mapa e com camadas WMS:
 
 ```dart
 child: FlutterMap(
@@ -228,21 +228,21 @@ child: FlutterMap(
 );
 ```
 
-For more details visit [Custom CRS demo page](./example/lib/pages/custom_crs/Readme.md).
+Para mais detalhes visite [página demo de SRC Customizada](./example/lib/pages/custom_crs/Readme.md).
 
-## Run the example
+## Rodando o exemplo
 
-See the `example/` folder for a working example app.
+Acesse o diretório `example/`  para um aplicativo de exemplo funcionável.
 
-To run it, in a terminal cd into the folder.
-Then execute `ulimit -S -n 2048` ([ref](https://github.com/trentpiercy/trace/issues/1#issuecomment-404494469)).
-Then execute `flutter run` with a running emulator.
+Para rodar isso, em um terminal use cd para entrar no diretório.
+Então execute `unlimit -S 0n 2048` ([ref](https://github.com/trentpiercy/trace/issues/1#issuecomment-404494469)).
+E então execute `flutter run` com um emulador já iniciado.
 
-## Offline maps
+## Mapas offline
 
-[Follow this guide to grab offline tiles](https://tilemill-project.github.io/tilemill/docs/guides/osm-bright-mac-quickstart/)<br>
-Once you have your map exported to `.mbtiles`, you can use [mbtilesToPng](https://github.com/alfanhui/mbtilesToPngs) to unpack into `/{z}/{x}/{y}.png`.
-Move this to Assets folder and add asset directories to `pubspec.yaml`. Minimum required fields for offline maps are:
+[Siga esse tutorial para pegar peças offline](https://tilemill-project.github.io/tilemill/docs/guides/osm-bright-mac-quickstart/)<br>
+Se você tiver um mapa exportado para `.mbtiles`, você pode usar [mbtilesParaPng](https://github.com/alfanhui/mbtilesToPngs) desarquive dentro de `/{z}/{x}/{y}.png`.
+Mova isso para o diretório Assets e adicione o asset no arquivo `pubspec.yaml`. Os requisitos mínimos para usar mapas offline são:
 
 ```dart
 Widget build(ctx) {
@@ -263,23 +263,23 @@ Widget build(ctx) {
 }
 ```
 
-Make sure PanBoundaries are within offline map boundary to stop missing asset errors.<br>
-See the `flutter_map_example/` folder for a working example.
+Certifique-se de que os PanBoundaries estão dentro dos limites do mapa off-line para evitar erros de ativos ausentes.<br>
+Olhe o diretório `flutter_map_example/` para ver um exemplo funcionando.
 
-Note that there is also `FileTileProvider()`, which you can use to load tiles from the filesystem.
+Veja que aqui também é `FileTileProvider()`, você pode usar para carregar peças do filesystem (memória local).
 
 ## Plugins
 
-- [flutter_map_marker_cluster](https://github.com/lpongetti/flutter_map_marker_cluster): Provides Beautiful Animated Marker Clustering functionality
-- [user_location](https://github.com/igaurab/user_location_plugin): A plugin to handle and plot the current user location in FlutterMap
-- [flutter_map_tappable_polyline](https://github.com/OwnWeb/flutter_map_tappable_polyline): A plugin to add `onTap` callback to `Polyline`
-- [lat_lon_grid_plugin](https://github.com/mat8854/lat_lon_grid_plugin): Adds a latitude / longitude grid as plugin to the FlutterMap
-- [flutter_map_marker_popup](https://github.com/rorystephenson/flutter_map_marker_popup): A plugin to show customisable popups for markers.
-- [map_elevation](https://github.com/OwnWeb/map_elevation): A widget to display elevation of a track (polyline) like Leaflet.Elevation
+- [flutter_map_marker_cluster](https://github.com/lpongetti/flutter_map_marker_cluster): Fornece a funcionalidade Beautiful Animated Marker Clustering.
+- [user_location](https://github.com/igaurab/user_location_plugin): Um plugin para manusear o localização atual do usuário no FlutterMap.
+- [flutter_map_tappable_polyline](https://github.com/OwnWeb/flutter_map_tappable_polyline): Um plugion para adicionar a callback do `onTap` no `Polyline`
+- [lat_lon_grid_plugin](https://github.com/mat8854/lat_lon_grid_plugin): Adiciona uma grade de latitude e longitude como plugin do FlutterMap.
+- [flutter_map_marker_popup](https://github.com/rorystephenson/flutter_map_marker_popup): Um plugin para mostrar popus customizáveis para os markers.
+- [map_elevation](https://github.com/OwnWeb/map_elevation): Um widget que mostra a elevação de uma pista (polilinha) como o Leaflet.Elevation.
 
-## Roadmap
+## Roteiro
 
-For the latest roadmap, please see the [Issue Tracker]
+Para os últimos roteiros, por favor veja o [Issue Tracker]
 
 [Leaflet]: http://leafletjs.com/
 [Mapbox]: https://www.mapbox.com/
