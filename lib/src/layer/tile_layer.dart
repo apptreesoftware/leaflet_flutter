@@ -16,7 +16,7 @@ import 'package:tuple/tuple.dart';
 import 'layer.dart';
 
 typedef TemplateFunction = String Function(
-    String str, Map<String, String> data);
+    String str, Map<String, dynamic> data);
 typedef ErrorTileCallBack = void Function(Tile tile, dynamic error);
 
 /// Describes the needed properties to create a tile-based layer. A tile is an
@@ -148,7 +148,7 @@ class TileLayerOptions extends LayerOptions {
   /// ),
   /// ```
   ///
-  final Map<String, String> additionalOptions;
+  final Map<String, dynamic> additionalOptions;
 
   /// Tiles will not update more than once every `updateInterval` (default 200
   /// milliseconds) when panning. It can be null (but it will calculating for
@@ -209,7 +209,7 @@ class TileLayerOptions extends LayerOptions {
     this.maxNativeZoom,
     this.zoomReverse = false,
     double zoomOffset = 0.0,
-    Map<String, String> additionalOptions,
+    Map<String, dynamic> additionalOptions,
     this.subdomains = const <String>[],
     this.keepBuffer = 2,
     this.backgroundColor = const Color(0xFFE0E0E0),
@@ -263,7 +263,7 @@ class TileLayerOptions extends LayerOptions {
         // copy additionalOptions Map if not null, so we can safely compare old
         // and new Map inside didUpdateWidget with MapEquality.
         additionalOptions = additionalOptions == null
-            ? const <String, String>{}
+            ? const <String, dynamic>{}
             : Map.from(additionalOptions),
         super(key: key, rebuild: rebuild);
 }

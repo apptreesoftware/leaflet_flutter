@@ -7,13 +7,13 @@ var _templateRe = RegExp(r'\{ *([\w_-]+) *\}');
 /// Replaces the templating placeholders with the provided data map.
 ///
 /// Throws an [Exception] if any placeholder remains unresolved.
-String template(String str, Map<String, String> data) {
+String template(String str, Map<String, dynamic> data) {
   return str.replaceAllMapped(_templateRe, (Match match) {
     var value = data[match.group(1)];
     if (value == null) {
       throw Exception('No value provided for variable ${match.group(1)}');
     } else {
-      return value;
+      return value.toString();
     }
   });
 }

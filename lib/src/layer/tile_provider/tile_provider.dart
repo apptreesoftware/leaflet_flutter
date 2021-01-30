@@ -17,19 +17,18 @@ abstract class TileProvider {
             .getUrl(coords, options.tileSize.toInt(), options.retinaMode)
         : options.urlTemplate;
 
-    var z = _getZoomForUrl(coords, options);
+    final x = coords.x.round();
+    final y = coords.y.round();
+    final z = _getZoomForUrl(coords, options).round();
 
-    var data = <String, String>{
-      'x': coords.x.round().toString(),
-      'y': coords.y.round().toString(),
-      'z': z.round().toString(),
+    var data = <String, dynamic>{
+      'x': x,
+      'y': options.tms ? invertY(y, z) : y,
+      'z': z,
       's': getSubdomain(coords, options),
       'r': '@2x',
     };
-    if (options.tms) {
-      data['y'] = invertY(coords.y.round(), z.round()).toString();
-    }
-    var allOpts = Map<String, String>.from(data)
+    var allOpts = Map<String, dynamic>.from(data)
       ..addAll(options.additionalOptions);
     return options.templateFunction(urlTemplate, allOpts);
   }
