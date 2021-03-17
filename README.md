@@ -316,6 +316,7 @@ Note that there is also `FileTileProvider()`, which you can use to load tiles fr
 - [lat_lon_grid_plugin](https://github.com/mat8854/lat_lon_grid_plugin): Adds a latitude / longitude grid as plugin to the FlutterMap
 - [flutter_map_marker_popup](https://github.com/rorystephenson/flutter_map_marker_popup): A plugin to show customisable popups for markers.
 - [map_elevation](https://github.com/OwnWeb/map_elevation): A widget to display elevation of a track (polyline) like Leaflet.Elevation
+- [flutter_map_move_marker](https://github.com/StrangeYear/flutter_map_move_marker.git): A plugin to show move marker.
 
 ## Roadmap
 
