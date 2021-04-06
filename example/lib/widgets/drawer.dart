@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map_example/pages/map_inside_listview.dart';
 
 import '../pages/animated_map_controller.dart';
 import '../pages/circle.dart';
@@ -187,6 +188,12 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           const Text('Interactive flags test page'),
           InteractiveTestPage.route,
           currentRoute,
+        ),
+        _buildMenuItem(
+            context,
+            const Text('Map inside listview'),
+            MapInsideListViewPage.route,
+            currentRoute
         ),
       ],
     ),

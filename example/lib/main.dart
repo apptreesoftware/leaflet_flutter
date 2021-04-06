@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map_example/pages/map_inside_listview.dart';
 
 import './pages/animated_map_controller.dart';
 import './pages/circle.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         TileLoadingErrorHandle.route: (context) => TileLoadingErrorHandle(),
         TileBuilderPage.route: (context) => TileBuilderPage(),
         InteractiveTestPage.route: (context) => InteractiveTestPage(),
+        MapInsideListViewPage.route: (context) => MapInsideListViewPage(),
       },
     );
   }
