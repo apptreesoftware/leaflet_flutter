@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/src/map/map.dart';
-import 'package:latlong2/latlong.dart' hide Path;
+import 'package:maps_toolkit/maps_toolkit.dart';
 
 class CircleLayerOptions extends LayerOptions {
   final List<CircleMarker> circles;
@@ -74,7 +74,8 @@ class CircleLayer extends StatelessWidget {
           circle.offset = Offset(pos.x.toDouble(), pos.y.toDouble());
 
           if (circle.useRadiusInMeter) {
-            var r = Distance().offset(circle.point, circle.radius, 180);
+            var r =
+                SphericalUtil.computeOffset(circle.point, circle.radius, 180);
             var rpos = map.project(r);
             rpos = rpos.multiplyBy(map.getZoomScale(map.zoom, map.zoom)) -
                 map.getPixelOrigin();

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
-import 'package:latlong2/latlong.dart';
+import 'package:flutter_map/src/geo/angles.dart';
+import 'package:maps_toolkit/maps_toolkit.dart';
 
 class LatLngBounds {
   LatLng _sw;
@@ -18,8 +19,8 @@ class LatLngBounds {
       num maxY;
 
       for (var point in points) {
-        num x = point.longitudeInRad;
-        num y = point.latitudeInRad;
+        num x = toRadians(point.longitude);
+        num y = toRadians(point.latitude);
 
         if (minX == null || minX > x) {
           minX = x;
@@ -38,8 +39,8 @@ class LatLngBounds {
         }
       }
 
-      _sw = LatLng(radianToDeg(minY), radianToDeg(minX));
-      _ne = LatLng(radianToDeg(maxY), radianToDeg(maxX));
+      _sw = LatLng(toDegrees(minY), toDegrees(minX));
+      _ne = LatLng(toDegrees(maxY), toDegrees(maxX));
     }
   }
 
@@ -59,10 +60,10 @@ class LatLngBounds {
       _sw = LatLng(sw2.latitude, sw2.longitude);
       _ne = LatLng(ne2.latitude, ne2.longitude);
     } else {
-      _sw.latitude = math.min(sw2.latitude, _sw.latitude);
-      _sw.longitude = math.min(sw2.longitude, _sw.longitude);
-      _ne.latitude = math.max(ne2.latitude, _ne.latitude);
-      _ne.longitude = math.max(ne2.longitude, _ne.longitude);
+      _sw = LatLng(math.min(sw2.latitude, _sw.latitude),
+          math.min(sw2.longitude, _sw.longitude));
+      _ne = LatLng(math.max(ne2.latitude, _ne.latitude),
+          math.max(ne2.longitude, _ne.longitude));
     }
   }
 

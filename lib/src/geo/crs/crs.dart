@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter_map/src/core/bounds.dart';
 import 'package:flutter_map/src/core/point.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:maps_toolkit/maps_toolkit.dart';
 import 'package:meta/meta.dart';
 import 'package:proj4dart/proj4dart.dart' as proj4;
 import 'package:tuple/tuple.dart';

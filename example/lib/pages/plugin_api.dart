@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:maps_toolkit/maps_toolkit.dart';
 
 import '../widgets/drawer.dart';
 

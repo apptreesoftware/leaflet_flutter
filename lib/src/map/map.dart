@@ -6,8 +6,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/src/core/bounds.dart';
 import 'package:flutter_map/src/core/center_zoom.dart';
 import 'package:flutter_map/src/core/point.dart';
+import 'package:flutter_map/src/geo/angles.dart';
 import 'package:flutter_map/src/map/map_state_widget.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:maps_toolkit/maps_toolkit.dart';
 
 class MapControllerImpl implements MapController {
   final Completer<Null> _readyCompleter = Completer<Null>();
@@ -90,7 +91,7 @@ class MapState {
 
   set rotation(double rotation) {
     _rotation = rotation;
-    _rotationRad = degToRadian(rotation);
+    _rotationRad = toRadians(rotation);
   }
 
   double get rotationRad => _rotationRad;
@@ -103,7 +104,7 @@ class MapState {
 
   MapState(this.options, this.onRotationChanged, this._mapEventSink)
       : _rotation = options.rotation,
-        _rotationRad = degToRadian(options.rotation),
+        _rotationRad = toRadians(options.rotation),
         _zoom = options.zoom,
         _onMoveSink = StreamController.broadcast();
 

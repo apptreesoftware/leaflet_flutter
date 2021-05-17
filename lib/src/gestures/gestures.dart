@@ -3,10 +3,11 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/src/geo/angles.dart';
 import 'package:flutter_map/src/gestures/interactive_flag.dart';
 import 'package:flutter_map/src/gestures/latlng_tween.dart';
 import 'package:flutter_map/src/map/map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:maps_toolkit/maps_toolkit.dart';
 import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 import 'package:flutter/physics.dart';
 
@@ -241,7 +242,7 @@ abstract class MapGestureMixin extends State<FlutterMap>
     final flags = options.interactiveFlags;
     final focalOffset = details.localFocalPoint;
 
-    final currentRotation = radianToDeg(details.rotation);
+    final currentRotation = toDegrees(details.rotation);
 
     if (_dragMode) {
       if (InteractiveFlag.hasFlag(flags, InteractiveFlag.drag)) {
