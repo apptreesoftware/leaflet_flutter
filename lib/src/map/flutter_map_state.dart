@@ -86,6 +86,7 @@ class FlutterMapState extends MapGestureMixin {
           onPointerDown: savePointer,
           onPointerCancel: removePointer,
           onPointerUp: removePointer,
+          onPointerSignal: handlePointerSignal,
           child: PositionedTapDetector2(
             controller: _positionedTapController,
             onTap: handleTap,
