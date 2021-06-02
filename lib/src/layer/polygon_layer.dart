@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/src/map/map.dart';
@@ -35,6 +36,8 @@ class Polygon {
   final Color borderColor;
   final bool disableHolesBorder;
   final bool isDotted;
+  final String label;
+  final TextStyle labelStyle;
   LatLngBounds boundingBox;
 
   Polygon({
@@ -45,9 +48,9 @@ class Polygon {
     this.borderColor = const Color(0xFFFFFF00),
     this.disableHolesBorder = false,
     this.isDotted = false,
-  }) : holeOffsetsList = null == holePointsList || holePointsList.isEmpty
-            ? null
-            : List.generate(holePointsList.length, (_) => []);
+    this.label,
+    this.labelStyle = const TextStyle(),
+  }) : holeOffsetsList = null == holePointsList || holePointsList.isEmpty ? null : List.generate(holePointsList.length, (_) => []);
 }
 
 class PolygonLayerWidget extends StatelessWidget {
@@ -66,8 +69,7 @@ class PolygonLayer extends StatelessWidget {
   final MapState map;
   final Stream stream;
 
-  PolygonLayer(this.polygonOpts, this.map, this.stream)
-      : super(key: polygonOpts.key);
+  PolygonLayer(this.polygonOpts, this.map, this.stream) : super(key: polygonOpts.key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +96,7 @@ class PolygonLayer extends StatelessWidget {
             }
           }
 
-          if (polygonOpts.polygonCulling &&
-              !polygon.boundingBox.isOverlapping(map.bounds)) {
+          if (polygonOpts.polygonCulling && !polygon.boundingBox.isOverlapping(map.bounds)) {
             // skip this polygon as it's offscreen
             continue;
           }
@@ -104,11 +105,9 @@ class PolygonLayer extends StatelessWidget {
 
           if (null != polygon.holePointsList) {
             for (var i = 0, len = polygon.holePointsList.length; i < len; ++i) {
-              _fillOffsets(
-                  polygon.holeOffsetsList[i], polygon.holePointsList[i]);
+              _fillOffsets(polygon.holeOffsetsList[i], polygon.holePointsList[i]);
             }
           }
-
           polygons.add(
             CustomPaint(
               painter: PolygonPainter(polygon),
@@ -131,8 +130,7 @@ class PolygonLayer extends StatelessWidget {
       var point = points[i];
 
       var pos = map.project(point);
-      pos = pos.multiplyBy(map.getZoomScale(map.zoom, map.zoom)) -
-          map.getPixelOrigin();
+      pos = pos.multiplyBy(map.getZoomScale(map.zoom, map.zoom)) - map.getPixelOrigin();
       offsets.add(Offset(pos.x.toDouble(), pos.y.toDouble()));
       if (i > 0) {
         offsets.add(Offset(pos.x.toDouble(), pos.y.toDouble()));
@@ -165,21 +163,17 @@ class PolygonPainter extends CustomPainter {
 
       if (polygonOpt.isDotted) {
         var spacing = polygonOpt.borderStrokeWidth * 1.5;
-        _paintDottedLine(
-            canvas, polygonOpt.offsets, borderRadius, spacing, borderPaint);
+        _paintDottedLine(canvas, polygonOpt.offsets, borderRadius, spacing, borderPaint);
 
-        if (!polygonOpt.disableHolesBorder &&
-            null != polygonOpt.holeOffsetsList) {
+        if (!polygonOpt.disableHolesBorder && null != polygonOpt.holeOffsetsList) {
           for (var offsets in polygonOpt.holeOffsetsList) {
-            _paintDottedLine(
-                canvas, offsets, borderRadius, spacing, borderPaint);
+            _paintDottedLine(canvas, offsets, borderRadius, spacing, borderPaint);
           }
         }
       } else {
         _paintLine(canvas, polygonOpt.offsets, borderRadius, borderPaint);
 
-        if (!polygonOpt.disableHolesBorder &&
-            null != polygonOpt.holeOffsetsList) {
+        if (!polygonOpt.disableHolesBorder && null != polygonOpt.holeOffsetsList) {
           for (var offsets in polygonOpt.holeOffsetsList) {
             _paintLine(canvas, offsets, borderRadius, borderPaint);
           }
@@ -188,8 +182,7 @@ class PolygonPainter extends CustomPainter {
     }
   }
 
-  void _paintDottedLine(Canvas canvas, List<Offset> offsets, double radius,
-      double stepLength, Paint paint) {
+  void _paintDottedLine(Canvas canvas, List<Offset> offsets, double radius, double stepLength, Paint paint) {
     var startDistance = 0.0;
     for (var i = 0; i < offsets.length - 1; i++) {
       var o0 = offsets[i];
@@ -203,15 +196,12 @@ class PolygonPainter extends CustomPainter {
         canvas.drawCircle(offset, radius, paint);
         distance += stepLength;
       }
-      startDistance = distance < totalDistance
-          ? stepLength - (totalDistance - distance)
-          : distance - totalDistance;
+      startDistance = distance < totalDistance ? stepLength - (totalDistance - distance) : distance - totalDistance;
     }
     canvas.drawCircle(offsets.last, radius, paint);
   }
 
-  void _paintLine(
-      Canvas canvas, List<Offset> offsets, double radius, Paint paint) {
+  void _paintLine(Canvas canvas, List<Offset> offsets, double radius, Paint paint) {
     canvas.drawPoints(PointMode.lines, [...offsets, offsets[0]], paint);
     for (var offset in offsets) {
       canvas.drawCircle(offset, radius, paint);
@@ -238,9 +228,10 @@ class PolygonPainter extends CustomPainter {
       var path = Path();
       path.addPolygon(polygonOpt.offsets, true);
       canvas.drawPath(path, paint);
-
+      if (polygonOpt.label != null) {
+        _paintText(canvas, polygonOpt.offsets);
+      }
       _paintBorder(canvas);
-
       canvas.restore();
     } else {
       canvas.clipRect(rect);
@@ -249,11 +240,33 @@ class PolygonPainter extends CustomPainter {
         ..color = polygonOpt.color;
 
       var path = Path();
+
       path.addPolygon(polygonOpt.offsets, true);
       canvas.drawPath(path, paint);
-
+      if (polygonOpt.label != null) {
+        _paintText(canvas, polygonOpt.offsets);
+      }
       _paintBorder(canvas);
     }
+  }
+
+  void _paintText(Canvas canvas, List<Offset> points) {
+    var dx = points.map((e) => e.dx).toList().fold(0.0, (previousValue, element) => previousValue + element) / points.length;
+    var dy = points.map((e) => e.dy).toList().fold(0.0, (previousValue, element) => previousValue + element) / points.length;
+
+    final textSpan = TextSpan(text: polygonOpt.label, style: polygonOpt.labelStyle);
+    final textPainter = TextPainter(
+      text: textSpan,
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout(minWidth: 0, maxWidth: dx);
+    dx = dx - textPainter.width / 2;
+
+    textPainter.paint(
+      canvas,
+      Offset(dx, dy),
+    );
   }
 
   @override
