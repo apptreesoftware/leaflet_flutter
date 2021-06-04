@@ -35,7 +35,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
 
   void initLocationService() async {
     await _locationService.changeSettings(
-      accuracy: LocationAccuracy.HIGH,
+      accuracy: LocationAccuracy.high,
       interval: 1000,
     );
 
@@ -48,13 +48,12 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
 
       if (serviceEnabled) {
         var permission = await _locationService.requestPermission();
-        _permission = permission == PermissionStatus.GRANTED;
+        _permission = permission == PermissionStatus.granted;
 
         if (_permission) {
           location = await _locationService.getLocation();
           _currentLocation = location;
-          _locationService
-              .onLocationChanged()
+          _locationService.onLocationChanged
               .listen((LocationData result) async {
             if (mounted) {
               setState(() {
