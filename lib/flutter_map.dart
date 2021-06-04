@@ -220,6 +220,11 @@ class MapOptions {
   /// gestures will take effect see [MultiFingerGesture] for custom settings
   final int pinchMoveWinGestures;
 
+  /// If true then the map will scroll when the user uses the scroll wheel on
+  /// his mouse. This is supported on web and desktop, but might also work well
+  /// on Android. A [Listener] is used to capture the onPointerSignal events.
+  final bool enableScrollWheel;
+
   final double minZoom;
   final double maxZoom;
   @deprecated
@@ -267,6 +272,7 @@ class MapOptions {
     this.pinchMoveThreshold = 40.0,
     this.pinchMoveWinGestures =
         MultiFingerGesture.pinchZoom | MultiFingerGesture.pinchMove,
+    this.enableScrollWheel = true,
     this.minZoom,
     this.maxZoom,
     @Deprecated('') this.debug = false,

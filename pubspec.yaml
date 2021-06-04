@@ -10,21 +10,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tuple: ^1.0.2
+  tuple: ^2.0.0
   latlong2: ^0.8.0
   positioned_tap_detector_2: ^1.0.0
-  transparent_image: ^1.0.0
+  transparent_image: ^2.0.0
   async: ^2.1.0
-  flutter_image: ^3.0.0
+  flutter_image: ^4.0.1
   vector_math: ^2.0.0
-  proj4dart: ^1.0.4
+  proj4dart: ^2.0.0
   meta: ^1.1.0
   collection: ^1.14.0
 
 dev_dependencies:
   pedantic: ^1.11.0
-  location: ^2.5.0
+  location: ^4.1.1
   flutter_test:
     sdk: flutter
   test: ^1.9.0
-  mockito: ^4.1.4
+  mockito: ^5.0.8
