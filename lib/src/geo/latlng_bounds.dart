@@ -77,6 +77,33 @@ class LatLngBounds {
   LatLng get northWest => LatLng(north, west);
   LatLng get southEast => LatLng(south, east);
 
+  LatLng get center {
+    /// https://stackoverflow.com/a/4656937
+    /// http://www.movable-type.co.uk/scripts/latlong.html
+    ///
+    /// coord 1: southWest
+    /// coord 2: northEast
+    ///
+    /// phi: lat
+    /// lambda: lng
+
+    var phi1 = southWest!.latitudeInRad;
+    var lambda1 = southWest!.longitudeInRad;
+    var phi2 = northEast!.latitudeInRad;
+
+    var dLambda = degToRadian(northEast!.longitude -
+        southWest!.longitude); // delta lambda = lambda2-lambda1
+
+    var Bx = math.cos(phi2) * math.cos(dLambda);
+    var By = math.cos(phi2) * math.sin(dLambda);
+    var phi3 = math.atan2(math.sin(phi1) + math.sin(phi2),
+        math.sqrt((math.cos(phi1) + Bx) * (math.cos(phi1) + Bx) + By * By));
+    var lambda3 = lambda1 + math.atan2(By, math.cos(phi1) + Bx);
+
+    //phi3 and lambda3 are actually in radians and LatLng wants degrees
+    return LatLng(radianToDeg(phi3), radianToDeg(lambda3));
+  }
+
   bool get isValid {
     return _sw != null && _ne != null;
   }
