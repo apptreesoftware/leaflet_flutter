@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/src/core/center_zoom.dart';
 import 'package:flutter_map/src/geo/crs/crs.dart';
 import 'package:flutter_map/src/gestures/interactive_flag.dart';
 import 'package:flutter_map/src/gestures/map_events.dart';
@@ -121,6 +122,11 @@ abstract class MapController {
   /// Fits the map bounds. Optional constraints can be defined
   /// through the [options] parameter.
   void fitBounds(LatLngBounds bounds, {FitBoundsOptions? options});
+
+  /// Calculate map location and zoom that fit given [bounds]
+  /// Optional constraints can be defined through the [options] parameter.
+  CenterZoom getBoundsCenterZoom(LatLngBounds bounds,
+      {FitBoundsOptions? options});
 
   Future<Null> get onReady;
 

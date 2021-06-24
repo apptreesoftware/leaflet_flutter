@@ -52,6 +52,12 @@ class MapControllerImpl implements MapController {
   }
 
   @override
+  CenterZoom getBoundsCenterZoom(LatLngBounds bounds,
+      {FitBoundsOptions? options}) {
+    return _state.getBoundsCenterZoom(bounds, options!);
+  }
+
+  @override
   LatLng get center => _state.center;
 
   @override
