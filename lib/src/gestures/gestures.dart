@@ -564,6 +564,22 @@ abstract class MapGestureMixin extends State<FlutterMap>
     closeFlingAnimationController(MapEventSource.doubleTap);
     closeDoubleTapController(MapEventSource.doubleTap);
 
+    if (options.onDoubleTap != null) {
+      //Clearly define between behaviours to avoid confusion
+      if (InteractiveFlag.hasFlag(
+          options.interactiveFlags, InteractiveFlag.doubleTapZoom)) {
+        throw Exception('To overide double tap behavior, '
+            'InteractiveFlag.doubleTapZoom has to get disabled in MapOptions');
+      }
+
+      final latlng = _offsetToCrs(tapPosition.relative!);
+      options.onDoubleTap!(latlng);
+    } else {
+      _handleDoubleTapDefault(tapPosition);
+    }
+  }
+
+  void _handleDoubleTapDefault(TapPosition tapPosition) {
     if (InteractiveFlag.hasFlag(
         options.interactiveFlags, InteractiveFlag.doubleTapZoom)) {
       final centerPos = _pointToOffset(mapState.originalSize!) / 2.0;

@@ -226,6 +226,7 @@ class MapOptions {
   final bool allowPanning;
 
   final TapCallback? onTap;
+  final TapCallback? onDoubleTap;
   final LongPressCallback? onLongPress;
   final PositionCallback? onPositionChanged;
   final MapCreatedCallback? onMapCreated;
@@ -265,6 +266,7 @@ class MapOptions {
     this.interactiveFlags = InteractiveFlag.all,
     this.allowPanning = true,
     this.onTap,
+    this.onDoubleTap,
     this.onLongPress,
     this.onPositionChanged,
     this.onMapCreated,
