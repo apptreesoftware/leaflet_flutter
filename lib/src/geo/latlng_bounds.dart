@@ -121,4 +121,11 @@ class LatLngBounds {
     _sw = LatLng(_sw!.latitude - heightBuffer, _sw!.longitude - widthBuffer);
     _ne = LatLng(_ne!.latitude + heightBuffer, _ne!.longitude + widthBuffer);
   }
+
+  @override
+  int get hashCode => _sw.hashCode + _ne.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      other is LatLngBounds && other._sw == _sw && other._ne == _ne;
 }

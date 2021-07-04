@@ -375,6 +375,16 @@ class MapPosition {
   final bool hasGesture;
 
   MapPosition({this.center, this.bounds, this.zoom, this.hasGesture = false});
+
+  @override
+  int get hashCode => center.hashCode + bounds.hashCode + zoom.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      other is MapPosition &&
+      other.center == center &&
+      other.bounds == bounds &&
+      other.zoom == zoom;
 }
 
 class _SafeArea {
